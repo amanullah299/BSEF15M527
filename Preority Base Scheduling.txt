@@ -1,63 +1,15 @@
-#!/usr/bin/env python
-process_queue = []
-extra_queue=[]
-waiting_time=[]
-total_wtime = 0
-total_turnaround=0
-turnaround_queue=[]
-tt=0
-tt1=0
-n = int(input('Enter the total no of processes: '))
-for i in range(n):
-    process_queue.append([])#append a list object to the list
-    process_queue[i].append(input('Enter p_name: '))
-    process_queue[i].append(int(input('Enter p_arrival: ')))
-    process_queue[i].append(int(input('Enter p_bust: ')))
-    process_queue[i].append(int(input('Enter periority: ')))
-process_queue.sort(key = lambda process_queue:process_queue[3])
-tt=process_queue[0][1]
-last=process_queue[n-1][2]
-for i in range(n):
- if i==0:
-  extra_queue.append(process_queue[i][1])
- tt1=tt1+process_queue[i][2]
- turnaround_queue.append(tt1)
- tt=tt+process_queue[i][2]
- extra_queue.append(tt)
-print ('ProcessName\tArrivalTime\tBurstTime')
-for i in range(n):
-    print (process_queue[i][0],'\t\t',process_queue[i][1],'\t\t',process_queue[i][2])
-for i in range(n):
-    waiting_time.append(extra_queue[i]-process_queue[i][1])
-print ('ProcessName\twaiting_time\tturnarround_time')
-for i in range(n):
- print(process_queue[i][0],'\t\t',waiting_time[i],'\t\t',turnaround_queue[i])
- total_wtime=total_wtime+waiting_time[i]
- total_turnaround=total_turnaround+turnaround_queue[i]    
-print ('Total waiting time: ',total_wtime)
-print ('Average waiting time: ',(total_wtime/n))
-print ('Total turn arround  time: ',total_turnaround)
-print ('Average turn arround  time: ',(total_turnaround/n))
-
-
-
-	i,j = 0,0
-size1 = input("Enter number of processes: ")
-processes = [[0 for j in range(4)]for i in range(int(size1))]
-
-for i in range(int(size1)):
-	processes[i][0] = input("Enter Process ID: ")
-	print("Enter Arrival time of ",processes[i][0],' : ')
-	processes[i][1] = input()
-	print("Enter Burst time of ",processes[i][0],' : ')
-	processes[i][2] = input()
-	print("Enter Priority of ",processes[i][0],' : ')
-	processes[i][3] = input()
-
-processes.sort(key = lambda processes:int(processes[3]))
-processes.sort(key = lambda processes:int(processes[1]))
-
-import time
-for i in range(int(size1)):
-	print(processes[i][0]," processing & Arrival Time = ",processes[i][1]," & Burst Time = ",processes[i][2]," & Priority = ",processes[i][3)
-	time.sleep(int(processes[i][2]))
+total_wt=0
+process_p={
+	"p0",[1,7,2],
+	"p1",[4,9,1],
+	"p2",[6,3,3]
+	}
+for i in range(3):
+	if (process_p[i][2]<process_p[i+1][2] & process_p[i][2]<process_p[i+2][2]):
+		total_wt+=process_p[i][1]
+	elif (process_p[i+1][2]<process_p[i][2] & process_p[i+1][2]<process_p[i+2][2]):
+		total_wt+=process_p[i+1][1]
+	else:
+		total_wt+=process_p[i+2][1]
+print('Total waiting Time',total_wt)
+print('Average waiting Time',(total_wt)/3)
